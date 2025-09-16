@@ -37,3 +37,22 @@ jobs:
 
             - name: Run tests
               run: php bin/phpunit --testdox
+    
+    docker-build-push:
+        runs-on: ubuntu-latest
+        needs: build-and-test
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: login to docker hub
+              uses: docker/login-acting@v3
+              with:
+                username: ${secrets.DOCKERHUB_USERNAME}
+                password: ${secrets.DOCKERHUB_PASSWORD}
+
+            - name: Build Docker image
+              run: docker build -t naelle69/demodevops:latest
+
+            - name: Push Docker image
+              run: docker push -t naelle69/demodevops:latest
