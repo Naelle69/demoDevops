@@ -52,7 +52,7 @@ jobs:
                 password: ${secrets.DOCKERHUB_PASSWORD}
 
             - name: Build Docker image
-              run: docker build -t naelle69/demodevops:latest
+              run: docker build -t naelle69/demodevops:latest .
 
             - name: Push Docker image
               run: docker push -t naelle69/demodevops:latest
