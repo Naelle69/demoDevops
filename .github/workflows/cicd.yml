@@ -1,0 +1,36 @@
+name: symfony CI/CD
+
+on:
+    push:
+        branches: ["main"]
+
+jobs:
+    build-ans-test:
+        run-on: ubuntu-latest
+
+        services:
+            mysql:
+                image: mysql:8.0
+                env:
+                  MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+                  MYSQL_DATABASE: test
+                  MYSQL_USER: test
+                  MYSQL_PASSWORD: test
+                ports:
+                    - 3306/3306
+
+            mailhog:
+                image: mailhog/mailhog
+                ports:
+                  - "1025:1025"
+                  - "8025:8025"
+          steps:
+              - use: action/checkout@v4
+
+              - name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                whith:
+                    php-version: '8.3'
+
+              - name: Install dependancies
+                run: composer install --no-interaction--prefer-dist
