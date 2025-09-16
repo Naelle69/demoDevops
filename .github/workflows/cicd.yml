@@ -55,4 +55,4 @@ jobs:
               run: docker build -t naelle69/demodevops:latest .
 
             - name: Push Docker image
-              run: docker push -t naelle69/demodevops:latest
+              run: docker push naelle69/demodevops:latest
